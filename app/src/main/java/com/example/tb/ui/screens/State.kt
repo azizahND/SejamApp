@@ -17,6 +17,7 @@ class State {
     var organisasi by mutableStateOf("")
     var kegiatan by mutableStateOf("")
     var surat by mutableStateOf("")
+    var review by mutableStateOf("")
 
 
 }

@@ -90,7 +90,7 @@ Column (
     verticalArrangement = Arrangement.Top
 )
 {
-    // Input untuk Email
+
     OutlinedTextField(
         value = State.email,
         onValueChange = { State.email = it },
@@ -134,7 +134,7 @@ Column (
             if (State.email == validEmail && State.password == validPassword) {
                 navController.navigate("ruangan")
             } else {
-                // Tampilkan pesan kesalahan (misalnya, menggunakan Snackbar atau Toast)
+
                 State.errorMessage = "Email atau password salah. Silakan coba lagi."
             }
         },

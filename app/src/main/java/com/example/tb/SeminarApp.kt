@@ -13,12 +13,13 @@ fun SeminarApp() {
     val navController = rememberNavController()
     val PeminjamanState = State()
 
-    NavHost(navController, startDestination = "login") {
+    NavHost(navController, startDestination = "landing") {
         composable("login") {LoginScreen(navController, PeminjamanState) }
         composable("ruangan") {RuanganScreen(navController, PeminjamanState) }
          composable("deskripsi") {DeskripsiScreen(navController, PeminjamanState)}
         composable("jadwalTersedia") {DeskripsiScreen(navController, PeminjamanState)}
         composable("pengajuan") {PengajuanScreen(navController, PeminjamanState)}
+
 
     }
 }

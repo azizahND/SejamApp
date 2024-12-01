@@ -1,10 +1,12 @@
 package com.example.tb.ui.screens
 
 import android.annotation.SuppressLint
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -25,6 +27,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,11 +37,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import com.example.tb.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun PengajuanScreen (navController: NavHostController, State: State) {
+fun EditPengajuanScreen (navController: NavHostController, State: State) {
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -46,57 +52,8 @@ fun PengajuanScreen (navController: NavHostController, State: State) {
         verticalArrangement = Arrangement.Top
     )
     {
-        Text(
-            text = "Nama",
-            modifier = Modifier.padding(bottom = 2.dp),
-            style = TextStyle(
 
-                fontSize = 20.sp,
-        )
-        )
-
-        OutlinedTextField(
-            value = State.nama,
-            onValueChange = { State.nama = it },
-
-
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-                unfocusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-
-                ),
-            shape = RoundedCornerShape(20.dp)
-
-        )
-        Text(
-            text = "NIM",
-            modifier = Modifier.padding(bottom = 2.dp),
-            style = TextStyle(
-
-                fontSize = 20.sp,
-            )
-        )
-
-        OutlinedTextField(
-            value = State.nim,
-            onValueChange = { State.nim = it },
-
-
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(vertical = 10.dp),
-            colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-                unfocusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-
-                ),
-            shape = RoundedCornerShape(20.dp)
-
-        )
-        Text(
+                Text(
             text = "Organisasi",
             modifier = Modifier.padding(bottom = 2.dp),
             style = TextStyle(
@@ -256,32 +213,63 @@ fun PengajuanScreen (navController: NavHostController, State: State) {
                     navController.navigate("deskripsi")
                 },
                 modifier = Modifier
-                    .width(300.dp)
+                    .width(150.dp)
                     .height(60.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color(0xFF326A34)
                 )
             ) {
-                Text("Ajukan",
-                        style = TextStyle(
+                Text("Simpan",
+                    style = TextStyle(
                         fontWeight = FontWeight.Bold,
-                    fontSize = 20.sp,
-                )
+                        fontSize = 20.sp,
                     )
+                )
             }
         }
 
-}
-}
+
+    }
+    Column ( modifier = Modifier
+        .fillMaxSize()
+        .padding(start = 0.dp, top = 550.dp, end = 0.dp, bottom = 2.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Top)
+    {
+        Spacer(modifier = Modifier.height(20.dp))
+        val image: Painter = painterResource(id = R.drawable.edit)
+        Box(
+            modifier = Modifier
+                .fillMaxSize() // Pastikan Box memenuhi seluruh layar atau area induk
+        ) {
+            Image(
+                painter = image,
+                contentDescription = "Gambar 1",
+                modifier = Modifier
+                    .align(Alignment.BottomEnd) // Menempatkan gambar di kanan bawah
+                    .height(250.dp)
+                    .width(350.dp)
+
+
+                    .padding(0.dp),
+
+
+                contentScale = ContentScale.Crop
+            )
+        }
+    }
+
+    }
+
 
 @Preview(showBackground = true)
 @Composable
-fun PreviewPengajuanScreen() {
+fun PreviewEditPengajuanScreen() {
 
     val navController = rememberNavController()
     val State = State()
 
 
-    PengajuanScreen(navController = navController, State = State)
+    EditPengajuanScreen(navController = navController, State = State)
 
 }

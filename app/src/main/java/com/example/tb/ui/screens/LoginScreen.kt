@@ -20,6 +20,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -36,165 +37,99 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.example.tb.R
-
-
+import com.example.tb.ViewModel.MainViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
+fun LoginScreen(navController: NavHostController, viewModel: MainViewModel) {
 
-fun LoginScreen (navController: NavHostController, State: State){
-    Column (
+    val loginState = viewModel.loginState.value
+    val state = remember { State() }
+
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(start = 20.dp, top = 50.dp, end = 30.dp),
-
-        horizontalAlignment = Alignment.End,
+        horizontalAlignment = Alignment.Start,
         verticalArrangement = Arrangement.Top
-    )
-    {
-        Text(
-            text = "Selamat Datang",
-            style = TextStyle(
-           
-                fontWeight = FontWeight.Bold,
-                fontSize = 40.sp,
-                color = Color(0xFF326A34) // Warna dalam format hex
-            ),
-            modifier = Modifier.padding(5.dp)
-        )
-
-
-
-        Text(
-            text = "Sejam",
-            style = TextStyle(
-
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = Color(0xFF326A34)
-            ),
-            modifier = Modifier.padding(5.dp)
-        )
-
-
-    }
-
-Column (
-    modifier = Modifier
-        .fillMaxSize()
-        .padding(start = 30.dp, top = 150.dp, end = 30.dp),
-
-    horizontalAlignment = Alignment.End,
-    verticalArrangement = Arrangement.Top
-)
-{
-
-    OutlinedTextField(
-        value = State.email,
-        onValueChange = { State.email = it },
-        label = { Text("Email") },
-        placeholder = { Text("Masukkan Email") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-                colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-                    unfocusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-
-    ),
-    shape = RoundedCornerShape(20.dp)
-
-    )
-
-
-    OutlinedTextField(
-        value = State.password,
-        onValueChange = { State.password  = it},
-        label = { Text("Password") },
-        placeholder = { Text("Masukkan Password") },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-                colors = TextFieldDefaults.colors(
-                focusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-        unfocusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
-
-        ),
-    shape = RoundedCornerShape(20.dp)
-    )
-    val login = "Login"
-    val validEmail = "jijah"
-    val validPassword = "jijahkiw"
-
-    Button(
-
-        onClick = {
-            if (State.email == validEmail && State.password == validPassword) {
-                navController.navigate("ruangan")
-            } else {
-
-                State.errorMessage = "Email atau password salah. Silakan coba lagi."
-            }
-        },
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 60.dp)
-            .width(120.dp)
-            .height(60.dp),
-        colors = ButtonDefaults.buttonColors(
-            containerColor = Color(0xFF326A34)
-        )
     ) {
         Text(
-            text = login,
-            color = Color.White,
-            style = TextStyle(
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-            ),
-            modifier = Modifier.padding(horizontal = 16.dp)
+            text = "Selamat Datang",
+            style = MaterialTheme.typography.headlineMedium.copy(color = Color(0xFF326A34))
         )
-    }
-}
-    Column ( modifier = Modifier
-        .fillMaxSize()
-        .padding(start = 0.dp, top = 400.dp, end = 0.dp, bottom = 2.dp),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Top)
-    {
-        Spacer(modifier = Modifier.height(20.dp))
-        val image: Painter = painterResource(id = R.drawable.login)
-        Box(
+        Text(
+            text = "Silakan Login",
+            style = MaterialTheme.typography.bodyLarge.copy(color = Color(0xFF326A34))
+        )
+
+        OutlinedTextField(
+            value = state.email,
+            onValueChange = { state.email = it },
+            label = { Text("Email") },
+            placeholder = { Text("Masukkan Email") },
             modifier = Modifier
-                .fillMaxSize() // Pastikan Box memenuhi seluruh layar atau area induk
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
+                unfocusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f)
+            ),
+            shape = RoundedCornerShape(20.dp)
+        )
+
+        OutlinedTextField(
+            value = state.password,
+            onValueChange = { state.password = it },
+            label = { Text("Password") },
+            placeholder = { Text("Masukkan Password") },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 8.dp),
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f),
+                unfocusedContainerColor = Color(0xFF527853).copy(alpha = 0.4f)
+            ),
+            shape = RoundedCornerShape(20.dp)
+        )
+
+        if (loginState.isLoading) {
+            Text("Loading...", color = Color.Gray, modifier = Modifier.padding(8.dp))
+        }
+
+        Button(
+            onClick = {
+                viewModel.login(state.email, state.password)
+            },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp)
         ) {
-            Image(
-                painter = image,
-                contentDescription = "Gambar 1",
-                modifier = Modifier
-                    .align(Alignment.BottomEnd) // Menempatkan gambar di kanan bawah
-                    .height(400.dp)
-                    .width(400.dp)
+            Text("Login", color = Color.White)
+        }
 
-
-                    .padding(0.dp),
-
-
-                contentScale = ContentScale.Crop
+        loginState.errorMessage?.let {
+            Text(
+                text = it,
+                color = Color.Red,
+                modifier = Modifier.padding(top = 8.dp)
             )
+        }
+
+        loginState.user?.let {
+            navController.navigate("pilihan") // Navigate on successful login
         }
     }
 }
 
 
-    @Preview(showBackground = true)
-    @Composable
-    fun PreviewLoginScreen() {
 
-        val navController = rememberNavController()
-        val State = State()
+@Preview(showBackground = true)
+@Composable
+fun PreviewLoginScreen() {
+    val navController = rememberNavController()
+    val dummyViewModel = MainViewModel() // Gunakan ViewModel dummy untuk pratinjau
 
-        LoginScreen(navController = navController, State = State)
-    }
+    LoginScreen(navController = navController, viewModel = dummyViewModel)
+}

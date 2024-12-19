@@ -19,5 +19,7 @@ class State {
     var surat by mutableStateOf("")
     var review by mutableStateOf("")
 
+    var isLoading by mutableStateOf(false)
+
 
 }

@@ -1,38 +1,34 @@
 package com.example.tb
 
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.tb.ViewModel.MainViewModel
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import com.example.tb.ui.theme.TBTheme
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val viewModel: MainViewModel = viewModel()
-            var message by remember { mutableStateOf("Fetching...") }
-
-            // Fetch data saat komponen diluncurkan
-            LaunchedEffect(Unit) {
-                viewModel.fetchData()
-                message = viewModel.message ?: "No data"
-            }
-
-            // Tema aplikasi
             TBTheme {
-                // Konten aplikasi
-                SeminarApp()
+                Surface(color = MaterialTheme.colorScheme.background) {
+                    SeminarApp() // Pastikan ini dipanggil
+                }
             }
         }
     }
 }
+
+
+
+
+
 
 
 

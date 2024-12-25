@@ -19,6 +19,10 @@ dependencyResolutionManagement {
     }
 }
 
+<<<<<<< HEAD
 rootProject.name = "sejam"
+=======
+rootProject.name = "TB"
+>>>>>>> f1b2b907418f2ec746951bb8298aa82323833147
 include(":app")
  

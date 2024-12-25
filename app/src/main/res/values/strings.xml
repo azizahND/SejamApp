@@ -1,3 +1,10 @@
 <resources>
+<<<<<<< HEAD
     <string name="app_name">sejam</string>
 </resources>
+=======
+    <string name="app_name">TB</string>
+    <string name="login">Login</string>
+    <string name="ajukan">Ajukan</string>
+</resources>
+>>>>>>> f1b2b907418f2ec746951bb8298aa82323833147

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.Sejam" parent="android:Theme.Material.Light.NoActionBar">
@@ -6,4 +7,10 @@
     </style>
 
     <style name="Theme.Sejam" parent="Base.Theme.Sejam" />
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.TB" parent="android:Theme.Material.Light.NoActionBar" />
+>>>>>>> f1b2b907418f2ec746951bb8298aa82323833147
 </resources>
